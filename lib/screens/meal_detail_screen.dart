@@ -14,7 +14,7 @@ class MealDetailScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
       width: 400,
       decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
+          color: Theme.of(context).colorScheme.primary.withOpacity(0.8),
           borderRadius: BorderRadius.circular(10)),
       child: Text(
         text,
@@ -27,29 +27,15 @@ class MealDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget buildListTile(BuildContext context, List<String> text,
-      {double height = 150}) {
+  Widget buildListTile({required ListView list, double height = 150}) {
     return Container(
       height: height,
       width: 400,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-          color: Colors.grey.shade400.withOpacity(0.4),
+          color: Colors.grey.shade200.withOpacity(0.4),
           borderRadius: BorderRadius.circular(10)),
-      child: ListView.builder(
-        itemBuilder: (ctx, index) {
-          return Container(
-            padding: const EdgeInsets.all(5),
-            margin: const EdgeInsets.all(5),
-            width: 50,
-            color: Theme.of(context).colorScheme.secondary,
-            child: Text(
-              text[index],
-            ),
-          );
-        },
-        itemCount: text.length,
-      ),
+      child: list,
     );
   }
 
@@ -62,21 +48,58 @@ class MealDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(selectedMeal.title.toString()),
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 300,
-            width: double.infinity,
-            child: Image.network(
-              selectedMeal.imageUrl,
-              fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 300,
+              width: double.infinity,
+              child: Image.network(
+                selectedMeal.imageUrl,
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          buildSectionTitle(context, 'Ingredients'),
-          buildListTile(context, selectedMeal.ingredients),
-          buildSectionTitle(context, 'Steps'),
-          buildListTile(context, selectedMeal.steps, height: 200),
-        ],
+            buildSectionTitle(context, 'Ingredients'),
+            buildListTile(
+              list: ListView.builder(
+                itemBuilder: (ctx, index) {
+                  return Container(
+                    padding: const EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(5),
+                    width: 50,
+                    color: Theme.of(context).colorScheme.secondary,
+                    child: Text(
+                      selectedMeal.ingredients[index],
+                      textAlign: TextAlign.center,
+                    ),
+                  );
+                },
+                itemCount: selectedMeal.ingredients.length,
+              ),
+            ),
+            buildSectionTitle(context, 'Steps'),
+            buildListTile(
+                list: ListView.builder(
+                  itemBuilder: (ctx, index) {
+                    return Column(
+                      children: [
+                        ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.secondary,
+                            child: Text('${index + 1}'),
+                          ),
+                          title: Text(selectedMeal.steps[index]),
+                        ),
+                        const Divider()
+                      ],
+                    );
+                  },
+                  itemCount: selectedMeal.steps.length,
+                ),
+                height: 200),
+          ],
+        ),
       ),
     );
   }

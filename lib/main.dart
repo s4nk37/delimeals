@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/categories_screen.dart';
+import 'screens/tabs_screen.dart';
 import 'screens/category_meals_screen.dart';
 import 'screens/meal_detail_screen.dart';
 
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         ),
         colorScheme: const ColorScheme(
           brightness: Brightness.light,
-          primary: Color(0xffE89C30),
+          primary: Color(0xfff33b88),
           onPrimary: Color(0xff2D3142),
           secondary: Color(0xff70C1B3),
           onSecondary: Color(0xff353535),
@@ -42,8 +42,9 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const CategoriesScreen(),
+      // home: const CategoriesScreen(),
       routes: {
+        '/': (ctx) => const TabsScreen(),
         CategoryMealsScreen.routeName: (ctx) => const CategoryMealsScreen(),
         MealDetailScreen.routeName: (ctx) => const MealDetailScreen(),
       },
