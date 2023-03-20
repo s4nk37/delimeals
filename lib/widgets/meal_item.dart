@@ -2,13 +2,16 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import '/models/meal.dart';
+import '../screens/meal_detail_screen.dart';
 
 class MealItem extends StatelessWidget {
+  final String id;
   final String title;
   final String imageUrl;
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
+  final List<String> ingredients;
 
   const MealItem(
       {Key? key,
@@ -16,20 +19,58 @@ class MealItem extends StatelessWidget {
       required this.imageUrl,
       required this.duration,
       required this.complexity,
-      required this.affordability})
+      required this.affordability,
+      required this.ingredients,
+      required this.id})
       : super(key: key);
 
-  void selectMeal() {}
+  String get complexityText {
+    switch (complexity) {
+      case Complexity.simple:
+        return 'Simple';
+        break;
+      case Complexity.challenging:
+        return 'Challenging';
+        break;
+      case Complexity.hard:
+        return 'Hard';
+        break;
+      default:
+        return 'Unknown';
+        break;
+    }
+  }
+
+  String get affordabilityText {
+    switch (affordability) {
+      case Affordability.affordable:
+        return 'Affordable';
+        break;
+      case Affordability.pricey:
+        return 'Expensive';
+        break;
+      case Affordability.luxurious:
+        return 'Luxurious';
+        break;
+      default:
+        return 'Unknown';
+        break;
+    }
+  }
+
+  void selectMeal(BuildContext context) {
+    Navigator.of(context).pushNamed(MealDetailScreen.routeName, arguments: id);
+  }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: selectMeal,
+      onTap: () => selectMeal(context),
       child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          elevation: 0.0,
+          elevation: 2.0,
           margin: const EdgeInsets.all(10),
           child: Column(
             children: [
@@ -49,7 +90,7 @@ class MealItem extends StatelessWidget {
                   ),
                   Positioned(
                     bottom: 20,
-                    right: 20,
+                    right: 10,
                     child: ClipRRect(
                       child: BackdropFilter(
                         filter: ImageFilter.blur(sigmaY: 5, sigmaX: 5),
@@ -62,7 +103,9 @@ class MealItem extends StatelessWidget {
                             title,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
-                                fontSize: 25, color: Colors.black87),
+                                fontSize: 25,
+                                color: Colors.black87,
+                                fontFamily: 'Caveat'),
                             softWrap: true,
                             overflow: TextOverflow.fade,
                           ),
@@ -71,7 +114,39 @@ class MealItem extends StatelessWidget {
                     ),
                   ),
                 ],
-              )
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(Icons.schedule),
+                        Text(' $duration mins')
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.work,
+                        ),
+                        Text(' $complexityText'),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.currency_rupee_outlined,
+                        ),
+                        Text(
+                          ' $affordabilityText',
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ],
           )),
     );

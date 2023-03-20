@@ -34,10 +34,11 @@ class CategoryItem extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             title,
-            style: const TextStyle(
-                color: Colors.black45,
-                fontSize: 20,
-                fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: Colors.black.withOpacity(0.4),
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Caveat'),
           ),
         ),
       ),
