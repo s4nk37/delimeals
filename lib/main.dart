@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'DeliMeals',
       theme: ThemeData(
+        useMaterial3: false,
         textTheme: const TextTheme(
           bodyLarge: TextStyle(fontSize: 24.0),
           bodyMedium: TextStyle(fontSize: 14.0),
