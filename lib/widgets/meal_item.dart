@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import '/models/meal.dart';
 
@@ -27,7 +29,7 @@ class MealItem extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          elevation: 2.0,
+          elevation: 0.0,
           margin: const EdgeInsets.all(10),
           child: Column(
             children: [
@@ -42,8 +44,32 @@ class MealItem extends StatelessWidget {
                       height: 250,
                       width: double.infinity,
                       fit: BoxFit.cover,
+                      colorBlendMode: BlendMode.lighten,
                     ),
-                  )
+                  ),
+                  Positioned(
+                    bottom: 20,
+                    right: 20,
+                    child: ClipRRect(
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaY: 5, sigmaX: 5),
+                        child: Container(
+                          width: 350,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 5, horizontal: 4),
+                          color: Colors.grey.shade50.withOpacity(0.4),
+                          child: Text(
+                            title,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                fontSize: 25, color: Colors.black87),
+                            softWrap: true,
+                            overflow: TextOverflow.fade,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               )
             ],
