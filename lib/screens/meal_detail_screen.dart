@@ -3,8 +3,12 @@ import '../dummy_data.dart';
 
 class MealDetailScreen extends StatelessWidget {
   static const String routeName = '/meal-details';
+  final Function toggleFavorite;
+  final Function isFavorite;
 
-  const MealDetailScreen({Key? key}) : super(key: key);
+  const MealDetailScreen(
+      {Key? key, required this.toggleFavorite, required this.isFavorite})
+      : super(key: key);
 
   Widget buildSectionTitle(BuildContext context, String text) {
     return Container(
@@ -51,14 +55,33 @@ class MealDetailScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 300,
-              width: double.infinity,
-              child: Image.network(
-                selectedMeal.imageUrl,
-                fit: BoxFit.cover,
+            Stack(children: [
+              SizedBox(
+                height: 300,
+                width: double.infinity,
+                child: Image.network(
+                  selectedMeal.imageUrl,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
+              Positioned(
+                  right: 10,
+                  bottom: 10,
+                  child: CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.pink.withOpacity(0.6),
+                    child: IconButton(
+                      icon: Icon(
+                        isFavorite(mealId) ? Icons.star : Icons.star_border,
+                        size: 40,
+                        color: Colors.white24,
+                      ),
+                      onPressed: () {
+                        toggleFavorite(mealId);
+                      },
+                    ),
+                  ))
+            ]),
             buildSectionTitle(context, 'Ingredients'),
             buildListTile(
               list: ListView.builder(
