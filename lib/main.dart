@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         ),
         colorScheme: const ColorScheme(
           brightness: Brightness.light,
-          primary: Color(0xfff33b88),
+          primary: Color(0xffDF6B92),
           onPrimary: Color(0xff2D3142),
           secondary: Color(0xff70C1B3),
           onSecondary: Color(0xff353535),
@@ -34,12 +34,14 @@ class MyApp extends StatelessWidget {
         ),
         fontFamily: 'Open Sans',
         iconTheme: const IconThemeData(size: 14.0),
-        appBarTheme: const AppBarTheme(
-          titleTextStyle: TextStyle(
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.pink.shade300,
+          titleTextStyle: const TextStyle(
             fontFamily: 'Caveat',
             fontSize: 30,
             fontWeight: FontWeight.bold,
             letterSpacing: 1.5,
+            color: Colors.white70,
           ),
         ),
       ),

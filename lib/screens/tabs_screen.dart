@@ -1,7 +1,7 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'favorites_screen.dart';
 import 'categories_screen.dart';
+import '../widgets/main_drawer.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({Key? key}) : super(key: key);
@@ -47,41 +47,7 @@ class _TabsScreenState extends State<TabsScreen> {
           },
         ),
       ),
-      drawer: Drawer(
-        backgroundColor: Colors.grey.shade100.withOpacity(0.2),
-        elevation: 0.0,
-        width: MediaQuery.of(context).size.width / 3,
-        child: SafeArea(
-          child: ClipRRect(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaY: 15, sigmaX: 15),
-              child: Container(
-                margin: const EdgeInsets.only(top: 100.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Home',
-                      style: TextStyle(fontSize: 30, color: Colors.white70),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Divider(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      'Settings',
-                      style: TextStyle(fontSize: 30, color: Colors.white70),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
+      drawer: const MainDrawer(),
       body: _pages[_selectedPageIndex]['page'] as Widget,
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
