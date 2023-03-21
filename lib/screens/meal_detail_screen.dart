@@ -45,7 +45,9 @@ class MealDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(selectedMeal.title.toString()),
+        iconTheme: const IconThemeData(color: Colors.white70, size: 24),
       ),
+      drawerScrimColor: Colors.transparent,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -99,6 +101,11 @@ class MealDetailScreen extends StatelessWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pop(context, mealId);
+          },
+          child: const Icon(Icons.delete)),
     );
   }
 }

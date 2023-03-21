@@ -1,3 +1,4 @@
+import '../screens/filters_screen.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
@@ -38,7 +39,7 @@ class MainDrawer extends StatelessWidget {
                 width: double.infinity,
                 alignment: Alignment.bottomCenter,
                 padding: const EdgeInsets.symmetric(vertical: 10),
-                color: Colors.pink.shade300.withOpacity(0.8),
+                color: Colors.pink.shade400,
                 child: Text(
                   "Cooking up!",
                   style: Theme.of(context)
@@ -56,7 +57,10 @@ class MainDrawer extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              tileBuilder('Filters', Icons.settings, () {}),
+              tileBuilder('Filters', Icons.settings, () {
+                Navigator.of(context)
+                    .pushReplacementNamed(FiltersScreen.routeName);
+              }),
             ],
           ),
         ),

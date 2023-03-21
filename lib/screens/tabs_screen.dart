@@ -1,8 +1,8 @@
-import '../widgets/main_appbar.dart';
 import 'package:flutter/material.dart';
 import 'favorites_screen.dart';
 import 'categories_screen.dart';
 import '../widgets/main_drawer.dart';
+import '../widgets/main_appbar.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({Key? key}) : super(key: key);
