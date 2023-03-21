@@ -1,57 +1,66 @@
-import 'package:delimeals/screens/filters_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'theme.dart';
+import 'models/meal.dart';
+import 'dummy_data.dart';
 import 'screens/tabs_screen.dart';
 import 'screens/category_meals_screen.dart';
+import 'screens/filters_screen.dart';
 import 'screens/meal_detail_screen.dart';
 
 void main() => runApp(const MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  List<Meal> _availableMeals = dummyMeals;
+  Map<String, bool> _filters = {
+    'gluten': false,
+    'vegetarian': false,
+    'vegan': false,
+    'lactose': false,
+  };
+
+  void _setFilters(Map<String, bool> filterData) {
+    print('set');
+    setState(() {
+      _filters = filterData;
+      _availableMeals = dummyMeals.where((meal) {
+        if (_filters['gluten']! && !meal.isGlutenFree) {
+          return false;
+        }
+        if (_filters['vegetarian']! && !meal.isVegetarian) {
+          return false;
+        }
+        if (_filters['vegan']! && !meal.isVegan) {
+          return false;
+        }
+        if (_filters['lactose']! && !meal.isLactoseFree) {
+          return false;
+        }
+        return true;
+      }).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'DeliMeals',
-      theme: ThemeData(
-        useMaterial3: false,
-        textTheme: const TextTheme(
-          bodyLarge: TextStyle(fontSize: 24.0),
-          bodyMedium: TextStyle(fontSize: 14.0),
-        ),
-        colorScheme: const ColorScheme(
-          brightness: Brightness.light,
-          primary: Color(0xffDF6B92),
-          onPrimary: Color(0xff2D3142),
-          secondary: Color(0xff70C1B3),
-          onSecondary: Color(0xff353535),
-          error: Colors.red,
-          onError: Colors.white70,
-          background: Color(0xffEADEDA),
-          onBackground: Colors.black87,
-          surface: Color(0xffc5c5c5),
-          onSurface: Color(0xff2D3142),
-        ),
-        fontFamily: 'Open Sans',
-        iconTheme: const IconThemeData(size: 18.0),
-        appBarTheme: AppBarTheme(
-          backgroundColor: Colors.pink.shade300,
-          titleTextStyle: const TextStyle(
-            fontFamily: 'Caveat',
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 1.5,
-            color: Colors.white70,
-          ),
-        ),
-      ),
-      // home: const CategoriesScreen(),
+      theme: myTheme,
       routes: {
         '/': (ctx) => const TabsScreen(),
-        CategoryMealsScreen.routeName: (ctx) => const CategoryMealsScreen(),
+        CategoryMealsScreen.routeName: (ctx) =>
+            CategoryMealsScreen(availableMeals: _availableMeals),
         MealDetailScreen.routeName: (ctx) => const MealDetailScreen(),
-        FiltersScreen.routeName: (ctx) => const FiltersScreen(),
+        FiltersScreen.routeName: (ctx) =>
+            FiltersScreen(saveFilters: _setFilters, currentFilters: _filters),
       },
     );
   }
