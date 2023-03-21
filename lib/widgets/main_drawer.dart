@@ -4,19 +4,20 @@ import 'dart:ui';
 class MainDrawer extends StatelessWidget {
   const MainDrawer({Key? key}) : super(key: key);
 
-  Widget tileBuilder(String title) {
-    return InkWell(
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        width: double.infinity,
-        alignment: Alignment.center,
-        color: Colors.pink.shade300.withOpacity(0.5),
-        child: Text(
-          title,
-          style: const TextStyle(
-              fontSize: 30, color: Colors.white, fontFamily: 'Caveat'),
-        ),
+  Widget tileBuilder(
+    String title,
+    IconData icon,
+    Function tapHandler,
+  ) {
+    return ListTile(
+      leading: Icon(
+        icon,
+        size: 30,
       ),
+      title: Text(title),
+      onTap: () {
+        tapHandler();
+      },
     );
   }
 
@@ -33,10 +34,10 @@ class MainDrawer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                height: 200,
+                height: 115,
                 width: double.infinity,
                 alignment: Alignment.bottomCenter,
-                padding: const EdgeInsets.symmetric(vertical: 40),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 color: Colors.pink.shade300.withOpacity(0.8),
                 child: Text(
                   "Cooking up!",
@@ -49,11 +50,13 @@ class MainDrawer extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              tileBuilder('Home'),
+              tileBuilder('Meals', Icons.dining, () {
+                Navigator.of(context).pushNamed('/');
+              }),
               const SizedBox(
                 height: 20,
               ),
-              tileBuilder('Filters'),
+              tileBuilder('Filters', Icons.settings, () {}),
             ],
           ),
         ),

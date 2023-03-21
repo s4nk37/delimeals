@@ -1,3 +1,4 @@
+import '../widgets/main_appbar.dart';
 import 'package:flutter/material.dart';
 import 'favorites_screen.dart';
 import 'categories_screen.dart';
@@ -26,27 +27,10 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String appBarText = _pages[_selectedPageIndex]['title'] as String;
     return Scaffold(
       drawerScrimColor: Colors.transparent,
-      appBar: AppBar(
-        title: Text(_pages[_selectedPageIndex]['title'] as String),
-        elevation: 0.0,
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-              icon: const Icon(
-                Icons.menu_sharp,
-                size: 30,
-                color: Colors.white70,
-              ),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              // tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-            );
-          },
-        ),
-      ),
+      appBar: MainAppBar(title: appBarText),
       drawer: const MainDrawer(),
       body: _pages[_selectedPageIndex]['page'] as Widget,
       bottomNavigationBar: BottomNavigationBar(

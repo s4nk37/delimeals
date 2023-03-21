@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           onSurface: Color(0xff2D3142),
         ),
         fontFamily: 'Open Sans',
-        iconTheme: const IconThemeData(size: 14.0),
+        iconTheme: const IconThemeData(size: 18.0),
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.pink.shade300,
           titleTextStyle: const TextStyle(

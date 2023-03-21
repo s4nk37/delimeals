@@ -1,3 +1,5 @@
+import '../widgets/main_drawer.dart';
+import '../widgets/main_appbar.dart';
 import '../widgets/meal_item.dart';
 import 'package:flutter/material.dart';
 import '../dummy_data.dart';
@@ -18,9 +20,9 @@ class CategoryMealsScreen extends StatelessWidget {
     }).toList();
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(categoryTitle),
-        ),
+        appBar: MainAppBar(title: categoryTitle),
+        drawerScrimColor: Colors.transparent,
+        drawer: const MainDrawer(),
         body: ListView.builder(
           itemBuilder: (context, index) {
             return MealItem(
