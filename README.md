@@ -1,4 +1,4 @@
-# delimeals
+# Delimeals
 
 Simple meals app created for learning flutter.
 
